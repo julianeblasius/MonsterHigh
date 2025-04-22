@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster High Shop</title>
+   
+    <!--VUE CDN-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- STYLE -->
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="cart">Cart: {{ cart }}</div>
+        <div class="product-display">
+                <div class="product-container">
+                    <div class="product image">
+                        <!--IMAGEM DO PRODUTO-->
+                        <img :src="image" alt="img-product">
+                    </div>
+                    
+                    <div class="product-info">
+                        <!--INFO DO PRODUTO-->
+                        <h1>{{ product_title + " " + brand }}</h1>
+                        <p v-if="inStock >10" >Em estoque</p>
+                        <p v-else-if="inStock <=10 && inStock >=1">Restam poucas unidades</p>
+                        <p v-else>Fora de estoque</p>
+                        <ul>
+                            <li v-for="detail in details">
+                                {{ detail }}
+                            </li>
+                        </ul>
+
+                        <div v-for="variant in variants" 
+                        :key="variant.id" 
+                        @mouseover="changeImage(variant.image)"
+                        class="color-circle"
+                        :style="{ backgroundColor: variant.color }" >
+                        </div>
+                        <button 
+                        class="button" 
+                        :class="{disabledButton : inStock < 1}"
+                        v-on:click="addToCart"
+                        :disabled="inStock < 1">Add to Cart</button>
+                    </div>  
+                </div>
+
+                <div class="product-info">
+                    <!--INFO DO PRODUTO-->
+                    <h1>{{ product_title + " " + brand }}</h1>
+                    <p v-if="inStock >10" >Em estoque</p>
+                    <p v-else-if="inStock <=10 && inStock >=1">Restam poucas unidades</p>
+                    <p v-else>Fora de estoque</p>
+                    <ul>
+                        <li v-for="detail in details">
+                            {{ detail }}
+                        </li>
+                    </ul>
+
+                    <div v-for="variant in variants" 
+                    :key="variant.id" 
+                    @mouseover="changeImage(variant.image2)"
+                    class="color-circle"
+                    :style="{ backgroundColor: variant.color }" >
+                    </div>
+                    <button 
+                    class="button" 
+                    :class="{disabledButton : inStock < 1}"
+                    v-on:click="addToCart"
+                    :disabled="inStock < 1">Adicionar ao carrinho</button>
+                </div>  
+            </div>
+                    
+        </div>
+    </div>
+   
+    <!--
+        <h1>{{message}}</h1>
+        <input type="text" v-model="message">
+    -->
+        
+    <script>
+        const { createApp, ref } = Vue
+
+        createApp({
+            setup() {
+
+                const cart = ref(0);
+                const addToCart = () =>{
+                    cart.value +=1
+                }
+
+                const image = ref("./assets/images/images.jpeg");
+                const changeImage = (variantImage) => {
+                    image.value = variantImage
+                }
+
+                return {
+                    product_title: ref('Boneca'),
+                    brand: 'Clawdeen',
+                    image,
+                    inStock: ref(20),
+                    details:['50% Cotton', '30% Polyester', '20% Woll'],
+                    variants: 
+                    [{id:1, color:'pink', image:'assets/images/images.jpeg'},
+                    {id:2, color:'purple', image:'assets/images/clawdeen.jpeg'}],
+                    cart,
+                    addToCart,
+                    changeImage
+
+            }
+
+            const image2 = ref("./assets/images/cleo.jpg");
+                const changeImage2 = (variantImage2) => {
+                    image2.value = variantImage2
+                }
+
+                return {
+                    product_title: ref('Boneca'),
+                    brand: 'Cleo',
+                    image2,
+                    inStock: ref(20),
+                    details:['50% Cotton', '30% Polyester', '20% Woll'],
+                    variants: 
+                    [{id:1, color:'golden', image:'assets/images/cleo.jpg'},
+                    {id:2, color:'ciano', image:'assets/images/cleo2.jpg'}],
+                    cart,
+                    addToCart,
+                    changeImage2
+
+            }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
