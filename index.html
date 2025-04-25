@@ -10,6 +10,7 @@
 
     <!-- STYLE -->
     <link rel="stylesheet" href="assets/style.css">
+
 </head>
 <body>
     <div id="app">
@@ -25,151 +26,32 @@
                     <p v-if="product.inStock > 10">Em estoque</p>
                     <p v-else-if="product.inStock <= 10 && product.inStock >= 1">Restam poucas unidades</p>
                     <p v-else>Fora de estoque</p>
-                    <ul>
+                    <ul class="details">
                         <li v-for="detail in product.details">{{ detail }}</li>
                     </ul>
-        
-                    <div v-for="variant in product.variants" :key="variant.id"
-                        @mouseover="changeImage(product, variant.image)"
-                        class="color-circle"
-                        :style="{ backgroundColor: variant.color }">
+                    <div class="cont-dois">
+                        <div class="cores">
+                            <div v-for="variant in product.variants" :key="variant.id"
+                                @mouseover="changeImage(product, variant.image)"
+                                class="color-circle"
+                                :style="{ backgroundColor: variant.color }">
+                            </div>
+                        </div>
+                        <div class="btn">
+                            <button class="button" :class="{ disabledButton: product.inStock < 1 }"
+                                v-on:click="addToCart"
+                                :disabled="product.inStock < 1">
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
                     </div>
-        
-                    <button class="button" :class="{ disabledButton: product.inStock < 1 }"
-                        v-on:click="addToCart"
-                        :disabled="product.inStock < 1">
-                        Adicionar ao carrinho
-                    </button>
                 </div>
             </div>
         </div>
     </div>
    
-    <script>
-        const { createApp, ref } = Vue
-
-        createApp({
-            setup() {
-                const cart = ref(0);
-                const addToCart = () => { cart.value += 1 };
-              
-                const changeImage = (product, variantImage) => {
-                    product.image = variantImage;
-                };
-
-                const products = ref([
-                    {
-                        id: 1,
-                        title: 'Boneca',
-                        brand: 'Clawdeen',
-                        image: 'assets/images/rosto-clawdeen.jpg',
-                        inStock: 20,
-                        details: ['descrição', 'descrição', 'descrição'],
-                        variants: [
-                            { id: 1, color: 'pink', image: 'assets/images/rosto-clawdeen.jpg' },
-                            { id: 2, color: 'purple', image: 'assets/images/clawdeen.jpeg' }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        title: 'Boneca',
-                        brand: 'Cleo',
-                        image: 'assets/images/cleo.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: 'yellow', image: 'assets/images/cleo.jpg' },
-                            { id: 2, color: 'cyan', image: 'assets/images/cleo2.jpg' }
-                        ]
-                    },
-                    {
-                        id: 3,
-                        title: 'Boneca',
-                        brand: 'Draculaura',
-                        image: 'assets/images/rosto-draculaura.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: 'pink', image: 'assets/images/rosto-draculaura.jpg' },
-                            { id: 2, color: 'black', image: 'assets/images/doll-draculaura.jpg' }
-                        ]
-                    },
-                    {
-                        id: 4,
-                        title: 'Boneca',
-                        brand: 'Abbey',
-                        image: 'assets/images/rosto-abbey.png',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: 'white', image: 'assets/images/rosto-abbey.png' },
-                            { id: 2, color: '#3299CC', image: 'assets/images/abbey.jpg' }
-                        ]
-                    },
-                    {
-                        id: 5,
-                        title: 'Boneca',
-                        brand: 'lagoona',
-                        image: 'assets/images/rosto-lagoona.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: '#871F78', image: 'assets/images/rosto-lagoona.jpg' },
-                            { id: 2, color: '#ADEAEA', image: 'assets/images/lagoona.jpg' }
-                        ]
-                    },
-                    {
-                        id: 6,
-                        title: 'Boneca',
-                        brand: 'Operetta',
-                        image: 'assets/images/rosto-operetta.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: 'purple', image: 'assets/images/rosto-operetta.jpg' },
-                            { id: 2, color: '#A62A2A', image: 'assets/images/operetta.png' }
-                        ]
-                    },
-                    {
-                        id: 7,
-                        title: 'Boneca',
-                        brand: 'Ghoulia',
-                        image: 'assets/images/rosto-ghoulia.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: 'blue', image: 'assets/images/rosto-ghoulia.jpg' },
-                            { id: 2, color: 'red', image: 'assets/images/doll-ghoulia.jpg' }
-                        ]
-                    },
-                    {
-                        id: 8,
-                        title: 'Boneca',
-                        brand: 'Spectra',
-                        image: 'assets/images/rosto-spectra.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: '#673dff', image: 'assets/images/rosto-spectra.jpg' },
-                            { id: 2, color: 'white', image: 'assets/images/doll-spectra.jpg' }
-                        ]
-                    },{
-                        id: 9,
-                        title: 'Boneca',
-                        brand: 'Frankie',
-                        image: 'assets/images/rosto-frankie.jpg',
-                        inStock: 20,
-                        details: ['50% Algodão', '30% Poliéster', '20% Lã'],
-                        variants: [
-                            { id: 1, color: 'black', image: 'assets/images/rosto-frankie.jpg' },
-                            { id: 2, color: '', image: 'assets/images/doll-frankie.jpg' }
-                        ]
-                    }
-                ]);
-
-                return { cart, addToCart, products, changeImage };
-            }
-        }).mount('#app');
-    </script>
 </body>
+
+    <!--JAVASCRIPT-->
+    <script src="assets/script.js"></script>
 </html>
