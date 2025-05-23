@@ -318,6 +318,7 @@ footer {
 
   .product-container {
     width: 90%;
+    margin: 25px auto;
   }
 
   .cart {
