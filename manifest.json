@@ -1,0 +1,37 @@
+{
+    "id": "/?source=pwa",
+    "name": "Monster High Shop",
+    "short_name": "MH Shop",
+    "description": "Monster High Shop",
+    "start_url": ".",
+    "orientation": "portrait",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "/assets/logos/192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/logos/512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+    {
+      "src": "/assets/logos/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/assets/logos/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "form_factor": "wide"
+    }
+  ]
+}
